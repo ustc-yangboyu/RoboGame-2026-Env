@@ -1,0 +1,989 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="black_frame_reflective">
+  <compiler angle="radian" />
+  <statistic center="0 0 0.2" extent="5" />
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.95 1.0" rgb2="0.4 0.45 0.5" width="512" height="512" />
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1="0.9 0.9 0.9" rgb2="0.75 0.75 0.75" />
+    <material name="grid_mat" texture="grid" texrepeat="20 20" reflectance="0.1" />
+    <material name="white_mat" rgba="1 1 1 1" reflectance="0" specular="0" />
+    <material name="black_mat" rgba="0 0 0 1" reflectance="0" specular="0" />
+    <material name="black_gloss" rgba="0.02 0.02 0.02 1" specular="0.5" shininess="0.2" reflectance="0.3" />
+  </asset>
+  <worldbody>
+    <light directional="true" diffuse="0.6 0.6 0.6" specular="0.9 0.9 0.9" pos="2 2 8" dir="-0.2 -0.2 -1" />
+    <light directional="true" diffuse="0.3 0.3 0.3" specular="0.2 0.2 0.2" pos="-3 -3 5" dir="0.5 0.5 -1" />
+    <geom name="ground" type="plane" size="50 50 0.1" material="grid_mat" />
+    <geom name="floor" type="box" size="3.6 2.4 0.00102" pos="0 0 -0.001" rgba="0.5 0.5 0.5 1"/>
+    <body name="border" pos="0 0 0">
+      <geom type="box" size="3.6 0.2 0.2" pos="0 2.2 0.2" rgba="0 0 0 1" />
+      <geom type="box" size="3.6 0.2 0.2" pos="0 -2.2 0.2" rgba="0 0 0 1" />
+      <geom type="box" size="0.2 2.0 0.2" pos="-3.4 0 0.2" rgba="0 0 0 1" />
+      <geom type="box" size="0.2 2.0 0.2" pos="3.4 0 0.2" rgba="0 0 0 1" />
+    </body>
+    <geom type="box" size="0.3 0.3 0.001" pos="-2.9 1.7 0.0000" rgba="0.5 0.5 0.5 1" />
+    <geom type="box" size="0.3 0.3 0.001" pos="2.9 -1.7 0.0000" rgba="0.5 0.5 0.5 1" />
+    <geom type="box" size="0.3 1.2 0.05" pos="-2.9 -0.8 0.05" rgba="0.5 0.5 0.5 1" />
+    <geom type="box" size="0.3 1.2 0.05" pos="2.9 0.8 0.05" rgba="0.5 0.5 0.5 1" />
+    <body name="center_block" pos="0 0 0">
+      <geom type="box" size="1.4 0.2 0.175" pos="0 0 0.175" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="1.4 0.075 0.025" pos="0 -0.125 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="1.4 0.075 0.025" pos="0 0.125 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.575 0.05 0.025" pos="-0.825 0 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.05 0.05 0.025" pos="-0.1 0 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.05 0.05 0.025" pos="0.1 0 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.575 0.05 0.025" pos="0.825 0 0.375" rgba="0.5 0.5 0.5 1" />
+    </body>
+    <body name="left_extension" pos="0 0 0">
+      <geom type="box" size="0.15 0.9 0.175" pos="-1.25 1.1 0.175" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.15 0.075 0.025" pos="-1.25 0.275 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.15 0.075 0.025" pos="-1.25 1.925 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.05 0.75 0.025" pos="-1.35 1.1 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.05 0.75 0.025" pos="-1.15 1.1 0.375" rgba="0.5 0.5 0.5 1" />
+    </body>
+    <body name="right_extension" pos="0 0 0">
+      <geom type="box" size="0.15 0.9 0.175" pos="1.25 -1.1 0.175" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.15 0.075 0.025" pos="1.25 -1.925 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.15 0.075 0.025" pos="1.25 -0.275 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.05 0.75 0.025" pos="1.15 -1.1 0.375" rgba="0.5 0.5 0.5 1" />
+      <geom type="box" size="0.05 0.75 0.025" pos="1.35 -1.1 0.375" rgba="0.5 0.5 0.5 1" />
+    </body>
+    <geom type="box" size="0.85 0.9 0.1" pos="-0.25 1.1 0.1" rgba="0.5 0.5 0.5 1" />
+    <geom type="box" size="0.85 0.9 0.1" pos="0.25 -1.1 0.1" rgba="0.5 0.5 0.5 1" />
+    <body pos="-0.998787 -1.1 0.095149" euler="0 -0.244979 0">
+      <geom type="box" size="0.412311 0.9 0.005" rgba="0.5 0.5 0.5 1" />
+    </body>
+    <body pos="0.998787 1.1 0.095149" euler="0 0.244979 0">
+      <geom type="box" size="0.412311 0.9 0.005" rgba="0.5 0.5 0.5 1" />
+    </body>
+    <body name="purple_block_1" pos="-0.2 0 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="0.5 0.0 0.8 1" />
+    </body>
+    <body name="purple_block_2" pos="0 0 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="0.5 0.0 0.8 1" />
+    </body>
+    <body name="purple_block_3" pos="0.2 0 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="0.5 0.0 0.8 1" />
+    </body>
+    <body name="orange_left_01" pos="-1.25 0.425 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_02" pos="-1.25 0.575 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_03" pos="-1.25 0.725 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_04" pos="-1.25 0.875 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_05" pos="-1.25 1.025 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_06" pos="-1.25 1.175 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_07" pos="-1.25 1.325 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_08" pos="-1.25 1.475 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_09" pos="-1.25 1.625 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_left_10" pos="-1.25 1.775 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_01" pos="1.25 -1.775 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_02" pos="1.25 -1.625 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_03" pos="1.25 -1.475 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_04" pos="1.25 -1.325 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_05" pos="1.25 -1.175 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_06" pos="1.25 -1.025 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_07" pos="1.25 -0.875 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_08" pos="1.25 -0.725 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_09" pos="1.25 -0.575 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    <body name="orange_right_10" pos="1.25 -0.425 0.4">
+      <freejoint />
+      <inertial pos="0 0 0" mass="0.1" diaginertia="0.000167 0.000167 0.000167" />
+      <geom type="box" size="0.05 0.05 0.05" rgba="1.0 0.5 0.0 1" />
+    </body>
+    
+    <geom type="box" size="0.475 0.025 0.001" pos="-2.45 1.7 0.0005" rgba="0 0 0 1" />
+    <geom type="box" size="0.025 1.375 0.001" pos="-2.0 0.3 0.0005" rgba="0 0 0 1" />
+    <geom type="box" size="0.6 0.025 0.001" pos="-2.0 -1.1 0.0005" rgba="0 0 0 1" />
+    <body pos="-1 -1.1 0.1" euler="0 -0.244979 0">
+      <geom type="box" size="0.412311 0.025 0.002" rgba="0 0 0 1" />
+    </body>
+    <geom type="box" size="0.2875 0.025 0.001" pos="-1.6875 1.1 0.0005" rgba="0 0 0 1" />
+    <geom type="box" size="0.85 0.025 0.001" pos="0.25 -1.1 0.2005" rgba="0 0 0 1" />
+    <geom type="box" size="0.025 0.4375 0.001" pos="0.0 -0.6375 0.2005" rgba="0 0 0 1" />
+    
+    <body name="tag_0_blue" pos="-2.000000 1.999950 0.325000">
+      <geom name="tag_0_pix_0_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_0_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_pix_1_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_pix_1_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_pix_1_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_pix_1_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_pix_1_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_pix_1_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_pix_1_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_pix_1_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_pix_2_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_pix_2_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_pix_2_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_pix_2_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_pix_2_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_pix_2_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_pix_2_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_pix_2_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_pix_3_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_pix_3_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_pix_3_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_pix_3_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_pix_3_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_pix_3_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_pix_3_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_pix_3_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_pix_4_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_pix_4_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_pix_4_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_0_pix_4_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_0_pix_4_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_pix_4_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_pix_4_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_pix_4_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_pix_5_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_pix_5_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_pix_5_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_pix_5_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_pix_5_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_pix_5_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_pix_5_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_pix_5_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_pix_6_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_pix_6_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_pix_6_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_pix_6_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_0_pix_6_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_pix_6_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_pix_6_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_0_pix_6_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_pix_7_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_pix_7_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_1_blue" pos="-1.400050 1.100000 0.325000">
+      <geom name="tag_1_pix_0_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_0_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.065625" material="black_mat" />
+      <geom name="tag_1_pix_1_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.046875" material="black_mat" />
+      <geom name="tag_1_pix_1_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.046875" material="white_mat" />
+      <geom name="tag_1_pix_1_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.046875" material="white_mat" />
+      <geom name="tag_1_pix_1_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.046875" material="black_mat" />
+      <geom name="tag_1_pix_1_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.046875" material="white_mat" />
+      <geom name="tag_1_pix_1_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.046875" material="white_mat" />
+      <geom name="tag_1_pix_1_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.046875" material="white_mat" />
+      <geom name="tag_1_pix_1_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.046875" material="black_mat" />
+      <geom name="tag_1_pix_2_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.028125" material="black_mat" />
+      <geom name="tag_1_pix_2_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.028125" material="black_mat" />
+      <geom name="tag_1_pix_2_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.028125" material="white_mat" />
+      <geom name="tag_1_pix_2_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.028125" material="black_mat" />
+      <geom name="tag_1_pix_2_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.028125" material="black_mat" />
+      <geom name="tag_1_pix_2_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.028125" material="white_mat" />
+      <geom name="tag_1_pix_2_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.028125" material="black_mat" />
+      <geom name="tag_1_pix_2_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.028125" material="black_mat" />
+      <geom name="tag_1_pix_3_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_3_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.009375" material="white_mat" />
+      <geom name="tag_1_pix_3_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_3_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_3_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_3_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_3_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_3_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.009375" material="black_mat" />
+      <geom name="tag_1_pix_4_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_1_pix_4_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_1_pix_4_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_1_pix_4_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_1_pix_4_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.009375" material="black_mat" />
+      <geom name="tag_1_pix_4_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_1_pix_4_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.009375" material="white_mat" />
+      <geom name="tag_1_pix_4_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_1_pix_5_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_5_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_5_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_5_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_5_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.028125" material="white_mat" />
+      <geom name="tag_1_pix_5_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_5_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_5_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_1_pix_6_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_1_pix_6_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_1_pix_6_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_1_pix_6_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.046875" material="white_mat" />
+      <geom name="tag_1_pix_6_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.046875" material="white_mat" />
+      <geom name="tag_1_pix_6_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.046875" material="white_mat" />
+      <geom name="tag_1_pix_6_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_1_pix_6_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_1_pix_7_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_1_pix_7_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_2_blue" pos="0.000000 -0.200050 0.325000">
+      <geom name="tag_2_pix_0_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_0_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_pix_1_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_pix_1_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_pix_1_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_pix_1_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_pix_1_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_pix_1_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_pix_1_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_pix_1_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_pix_2_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_pix_2_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_pix_2_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_pix_2_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_pix_2_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_2_pix_2_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_2_pix_2_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_2_pix_2_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_pix_3_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_pix_3_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_pix_3_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_pix_3_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_pix_3_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_pix_3_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_pix_3_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_pix_3_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_pix_4_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_pix_4_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_2_pix_4_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_pix_4_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_2_pix_4_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_pix_4_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_pix_4_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_2_pix_4_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_pix_5_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_pix_5_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_2_pix_5_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_2_pix_5_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_pix_5_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_pix_5_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_2_pix_5_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_pix_5_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_pix_6_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_pix_6_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_pix_6_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_2_pix_6_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_2_pix_6_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_pix_6_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_pix_6_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_pix_6_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_pix_7_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_pix_7_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_3_blue" pos="1.099950 -1.100000 0.325000">
+      <geom name="tag_3_pix_0_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_0_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.065625" material="black_mat" />
+      <geom name="tag_3_pix_1_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.046875" material="black_mat" />
+      <geom name="tag_3_pix_1_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.046875" material="white_mat" />
+      <geom name="tag_3_pix_1_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.046875" material="white_mat" />
+      <geom name="tag_3_pix_1_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.046875" material="white_mat" />
+      <geom name="tag_3_pix_1_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.046875" material="black_mat" />
+      <geom name="tag_3_pix_1_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.046875" material="white_mat" />
+      <geom name="tag_3_pix_1_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.046875" material="black_mat" />
+      <geom name="tag_3_pix_1_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.046875" material="black_mat" />
+      <geom name="tag_3_pix_2_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.028125" material="black_mat" />
+      <geom name="tag_3_pix_2_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.028125" material="white_mat" />
+      <geom name="tag_3_pix_2_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.028125" material="white_mat" />
+      <geom name="tag_3_pix_2_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.028125" material="white_mat" />
+      <geom name="tag_3_pix_2_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.028125" material="white_mat" />
+      <geom name="tag_3_pix_2_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.028125" material="black_mat" />
+      <geom name="tag_3_pix_2_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.028125" material="black_mat" />
+      <geom name="tag_3_pix_2_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.028125" material="black_mat" />
+      <geom name="tag_3_pix_3_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.009375" material="black_mat" />
+      <geom name="tag_3_pix_3_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.009375" material="white_mat" />
+      <geom name="tag_3_pix_3_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.009375" material="black_mat" />
+      <geom name="tag_3_pix_3_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.009375" material="white_mat" />
+      <geom name="tag_3_pix_3_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.009375" material="white_mat" />
+      <geom name="tag_3_pix_3_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.009375" material="white_mat" />
+      <geom name="tag_3_pix_3_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.009375" material="white_mat" />
+      <geom name="tag_3_pix_3_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.009375" material="black_mat" />
+      <geom name="tag_3_pix_4_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_3_pix_4_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_3_pix_4_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_3_pix_4_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_3_pix_4_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.009375" material="black_mat" />
+      <geom name="tag_3_pix_4_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.009375" material="white_mat" />
+      <geom name="tag_3_pix_4_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_3_pix_4_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_3_pix_5_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_5_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.028125" material="white_mat" />
+      <geom name="tag_3_pix_5_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_5_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_5_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_5_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_5_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_5_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_3_pix_6_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_3_pix_6_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.046875" material="white_mat" />
+      <geom name="tag_3_pix_6_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_3_pix_6_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.046875" material="black_mat" />
+      <geom name="tag_3_pix_6_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.046875" material="black_mat" />
+      <geom name="tag_3_pix_6_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.046875" material="white_mat" />
+      <geom name="tag_3_pix_6_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_3_pix_6_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_3_pix_7_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_3_pix_7_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_4_blue" pos="-2.000000 -1.999950 0.325000">
+      <geom name="tag_4_pix_0_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_0_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_pix_1_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_pix_1_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_pix_1_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_pix_1_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_pix_1_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_pix_1_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_pix_1_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_pix_1_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_pix_2_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_pix_2_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.028125" material="white_mat" />
+      <geom name="tag_4_pix_2_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.028125" material="white_mat" />
+      <geom name="tag_4_pix_2_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_pix_2_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_pix_2_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_pix_2_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.028125" material="white_mat" />
+      <geom name="tag_4_pix_2_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_pix_3_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_pix_3_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_pix_3_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_pix_3_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_pix_3_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_pix_3_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_pix_3_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_pix_3_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_pix_4_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_pix_4_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_pix_4_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_pix_4_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_pix_4_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_pix_4_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_pix_4_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_pix_4_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_pix_5_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_pix_5_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_pix_5_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_pix_5_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_4_pix_5_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_4_pix_5_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_4_pix_5_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_pix_5_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_pix_6_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_pix_6_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_4_pix_6_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_pix_6_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_4_pix_6_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_4_pix_6_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_pix_6_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_pix_6_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_pix_7_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_pix_7_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_5_blue" pos="-3.199950 -1.100000 0.325000">
+      <geom name="tag_5_pix_0_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_0_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.065625" material="black_mat" />
+      <geom name="tag_5_pix_1_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_1_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_1_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_1_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_1_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_1_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_1_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.046875" material="white_mat" />
+      <geom name="tag_5_pix_1_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.046875" material="black_mat" />
+      <geom name="tag_5_pix_2_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.028125" material="black_mat" />
+      <geom name="tag_5_pix_2_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.028125" material="black_mat" />
+      <geom name="tag_5_pix_2_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.028125" material="white_mat" />
+      <geom name="tag_5_pix_2_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.028125" material="black_mat" />
+      <geom name="tag_5_pix_2_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.028125" material="white_mat" />
+      <geom name="tag_5_pix_2_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.028125" material="white_mat" />
+      <geom name="tag_5_pix_2_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.028125" material="black_mat" />
+      <geom name="tag_5_pix_2_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.028125" material="black_mat" />
+      <geom name="tag_5_pix_3_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.009375" material="black_mat" />
+      <geom name="tag_5_pix_3_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.009375" material="white_mat" />
+      <geom name="tag_5_pix_3_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.009375" material="black_mat" />
+      <geom name="tag_5_pix_3_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.009375" material="white_mat" />
+      <geom name="tag_5_pix_3_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.009375" material="black_mat" />
+      <geom name="tag_5_pix_3_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.009375" material="black_mat" />
+      <geom name="tag_5_pix_3_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.009375" material="white_mat" />
+      <geom name="tag_5_pix_3_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.009375" material="black_mat" />
+      <geom name="tag_5_pix_4_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_5_pix_4_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_5_pix_4_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.009375" material="white_mat" />
+      <geom name="tag_5_pix_4_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_5_pix_4_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_5_pix_4_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_5_pix_4_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.009375" material="white_mat" />
+      <geom name="tag_5_pix_4_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_5_pix_5_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_5_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_5_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_5_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_5_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_5_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.028125" material="white_mat" />
+      <geom name="tag_5_pix_5_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_5_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_5_pix_6_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_5_pix_6_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_5_pix_6_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_5_pix_6_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.046875" material="black_mat" />
+      <geom name="tag_5_pix_6_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.046875" material="white_mat" />
+      <geom name="tag_5_pix_6_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_5_pix_6_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.046875" material="white_mat" />
+      <geom name="tag_5_pix_6_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_5_pix_7_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_5_pix_7_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.065625" material="black_mat" />
+    </body>
+
+    <geom type="box" size="0.475 0.025 0.001" pos="2.450000 -1.700000 0.000500" rgba="0 0 0 1" />
+    <geom type="box" size="0.025 1.375 0.001" pos="2.000000 -0.300000 0.000500" rgba="0 0 0 1" />
+    <geom type="box" size="0.6 0.025 0.001" pos="2.000000 1.100000 0.000500" rgba="0 0 0 1" />
+    <body pos="1.000000 1.100000 0.100000" euler="-0.000000 0.244979 -0.000000">
+      <geom type="box" size="0.412311 0.025 0.002" rgba="0 0 0 1" />
+    </body>
+    <geom type="box" size="0.2875 0.025 0.001" pos="1.687500 -1.100000 0.000500" rgba="0 0 0 1" />
+    <geom type="box" size="0.85 0.025 0.001" pos="-0.250000 1.100000 0.200500" rgba="0 0 0 1" />
+    <geom type="box" size="0.025 0.4375 0.001" pos="-0.000000 0.637500 0.200500" rgba="0 0 0 1" />
+    
+    <body name="tag_0_red" pos="2.000000 -1.999950 0.325000">
+      <geom name="tag_0_red_pix_0_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_0_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_1_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_1_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_red_pix_1_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_red_pix_1_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_1_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_red_pix_1_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_0_red_pix_1_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_1_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_2_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_2_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_2_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_2_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_2_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_2_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_2_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_2_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_3_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_3_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_red_pix_3_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_red_pix_3_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_red_pix_3_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_0_red_pix_3_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_3_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_3_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_4_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_4_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_4_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_0_red_pix_4_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_0_red_pix_4_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_4_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_4_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_4_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_0_red_pix_5_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_5_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_5_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_5_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_5_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_5_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_5_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_0_red_pix_5_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_0_red_pix_6_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_6_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_6_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_6_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_0_red_pix_6_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_6_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_6_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_0_red_pix_6_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_0_red_pix_7_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_0_red_pix_7_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_1_red" pos="1.400050 -1.100000 0.325000">
+      <geom name="tag_1_red_pix_0_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_0_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_1_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_1_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_1_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_1_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_1_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_1_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_1_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_1_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_2_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_2_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_2_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.028125" material="white_mat" />
+      <geom name="tag_1_red_pix_2_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_2_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_2_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.028125" material="white_mat" />
+      <geom name="tag_1_red_pix_2_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_2_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_3_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_3_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.009375" material="white_mat" />
+      <geom name="tag_1_red_pix_3_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_3_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_3_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_3_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_3_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_3_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_4_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_4_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_4_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_4_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_1_red_pix_4_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_4_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_4_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.009375" material="white_mat" />
+      <geom name="tag_1_red_pix_4_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_1_red_pix_5_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_5_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_5_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_5_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_5_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.028125" material="white_mat" />
+      <geom name="tag_1_red_pix_5_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_5_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_5_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_1_red_pix_6_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_6_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_6_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_6_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_6_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_6_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.046875" material="white_mat" />
+      <geom name="tag_1_red_pix_6_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_6_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_1_red_pix_7_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_1_red_pix_7_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_2_red" pos="-0.000000 0.200050 0.325000">
+      <geom name="tag_2_red_pix_0_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_0_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_1_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_1_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_red_pix_1_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_red_pix_1_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_red_pix_1_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_1_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_1_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.046875" material="white_mat" />
+      <geom name="tag_2_red_pix_1_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_2_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_2_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_2_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_2_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_2_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_2_red_pix_2_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_2_red_pix_2_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.028125" material="white_mat" />
+      <geom name="tag_2_red_pix_2_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_3_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_3_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_3_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_3_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_3_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_3_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_3_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_3_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_4_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_4_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_4_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_4_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_4_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_4_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_4_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_2_red_pix_4_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_2_red_pix_5_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_5_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_2_red_pix_5_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_2_red_pix_5_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_5_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_5_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_2_red_pix_5_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_5_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_2_red_pix_6_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_6_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_6_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_2_red_pix_6_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_2_red_pix_6_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_6_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_6_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_6_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_2_red_pix_7_0" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_1" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_2" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_3" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_4" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_5" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_6" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_2_red_pix_7_7" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 0.000000 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_3_red" pos="-1.099950 1.100000 0.325000">
+      <geom name="tag_3_red_pix_0_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_0_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_1_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_1_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.046875" material="white_mat" />
+      <geom name="tag_3_red_pix_1_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.046875" material="white_mat" />
+      <geom name="tag_3_red_pix_1_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.046875" material="white_mat" />
+      <geom name="tag_3_red_pix_1_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_1_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.046875" material="white_mat" />
+      <geom name="tag_3_red_pix_1_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_1_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_2_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_2_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.028125" material="white_mat" />
+      <geom name="tag_3_red_pix_2_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.028125" material="white_mat" />
+      <geom name="tag_3_red_pix_2_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.028125" material="white_mat" />
+      <geom name="tag_3_red_pix_2_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.028125" material="white_mat" />
+      <geom name="tag_3_red_pix_2_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_2_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_2_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_3_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_3_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_3_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_3_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_3_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_3_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_3_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_3_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_4_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_4_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_4_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_4_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_4_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_4_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.009375" material="white_mat" />
+      <geom name="tag_3_red_pix_4_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_4_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_3_red_pix_5_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_5_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.028125" material="white_mat" />
+      <geom name="tag_3_red_pix_5_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_5_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_5_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_5_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_5_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_5_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_3_red_pix_6_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_6_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.046875" material="white_mat" />
+      <geom name="tag_3_red_pix_6_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_6_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_6_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_6_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.046875" material="white_mat" />
+      <geom name="tag_3_red_pix_6_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_6_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_3_red_pix_7_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_3_red_pix_7_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_4_red" pos="2.000000 1.999950 0.325000">
+      <geom name="tag_4_red_pix_0_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_0_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_1_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_1_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_1_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_1_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_1_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_1_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_1_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_1_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_2_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_2_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.028125" material="white_mat" />
+      <geom name="tag_4_red_pix_2_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.028125" material="white_mat" />
+      <geom name="tag_4_red_pix_2_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_2_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_2_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_2_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.028125" material="white_mat" />
+      <geom name="tag_4_red_pix_2_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_3_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_3_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_3_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_3_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_3_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_3_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_3_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_3_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_4_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_4_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_4_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_4_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_4_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_4_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_4_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.009375" material="white_mat" />
+      <geom name="tag_4_red_pix_4_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.009375" material="black_mat" />
+      <geom name="tag_4_red_pix_5_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_5_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_5_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_5_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_4_red_pix_5_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_4_red_pix_5_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.028125" material="white_mat" />
+      <geom name="tag_4_red_pix_5_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_5_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.028125" material="black_mat" />
+      <geom name="tag_4_red_pix_6_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_6_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_6_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_6_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_6_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.046875" material="white_mat" />
+      <geom name="tag_4_red_pix_6_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_6_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_6_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.046875" material="black_mat" />
+      <geom name="tag_4_red_pix_7_0" type="box" size="0.009375 5e-05 0.009375" pos="0.065625 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_1" type="box" size="0.009375 5e-05 0.009375" pos="0.046875 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_2" type="box" size="0.009375 5e-05 0.009375" pos="0.028125 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_3" type="box" size="0.009375 5e-05 0.009375" pos="0.009375 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_4" type="box" size="0.009375 5e-05 0.009375" pos="-0.009375 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_5" type="box" size="0.009375 5e-05 0.009375" pos="-0.028125 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_6" type="box" size="0.009375 5e-05 0.009375" pos="-0.046875 -0.000000 -0.065625" material="black_mat" />
+      <geom name="tag_4_red_pix_7_7" type="box" size="0.009375 5e-05 0.009375" pos="-0.065625 -0.000000 -0.065625" material="black_mat" />
+    </body>
+    <body name="tag_5_red" pos="3.199950 1.100000 0.325000">
+      <geom name="tag_5_red_pix_0_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_0_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_1_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_1_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_1_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_1_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_1_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_1_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_1_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.046875" material="white_mat" />
+      <geom name="tag_5_red_pix_1_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_2_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_2_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_2_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.028125" material="white_mat" />
+      <geom name="tag_5_red_pix_2_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_2_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.028125" material="white_mat" />
+      <geom name="tag_5_red_pix_2_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.028125" material="white_mat" />
+      <geom name="tag_5_red_pix_2_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_2_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_3_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_3_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_3_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_3_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_3_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_3_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_3_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_3_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_4_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_4_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_4_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_4_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_4_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_4_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_4_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.009375" material="white_mat" />
+      <geom name="tag_5_red_pix_4_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.009375" material="black_mat" />
+      <geom name="tag_5_red_pix_5_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_5_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_5_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_5_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_5_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_5_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.028125" material="white_mat" />
+      <geom name="tag_5_red_pix_5_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_5_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.028125" material="black_mat" />
+      <geom name="tag_5_red_pix_6_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_6_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_6_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_6_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_6_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.046875" material="white_mat" />
+      <geom name="tag_5_red_pix_6_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_6_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.046875" material="white_mat" />
+      <geom name="tag_5_red_pix_6_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.046875" material="black_mat" />
+      <geom name="tag_5_red_pix_7_0" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.065625 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_1" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_2" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_3" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 -0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_4" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.009375 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_5" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.028125 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_6" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.046875 -0.065625" material="black_mat" />
+      <geom name="tag_5_red_pix_7_7" type="box" size="5e-05 0.009375 0.009375" pos="0.000000 0.065625 -0.065625" material="black_mat" />
+    </body>
+  </worldbody>
+</mujoco>
